@@ -22,6 +22,34 @@ app.get('/chat-messages', async (req, res) => {
     }
 });
 
+// Function to fetch chat messages from the server
+async function fetchChatMessages() {
+    try {
+        const response = await fetch('/chat-messages'); // Assuming your server is running on the same domain
+        const data = await response.json();
+        return data.messages.slice(0, 5); // Return the 5 most recent chat messages
+    } catch (error) {
+        console.error('Error fetching chat messages:', error);
+        return [];
+    }
+}
+
+// Function to display chat messages on the webpage
+async function displayChatMessages() {
+    const chatMessages = await fetchChatMessages();
+    const chatContainer = document.getElementById('chat-container');
+    
+    chatMessages.forEach((message) => {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = `${message.username}: ${message.message}`;
+        chatContainer.appendChild(messageElement);
+    });
+}
+
+// Call the function to display chat messages when the page loads
+window.onload = displayChatMessages;
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
