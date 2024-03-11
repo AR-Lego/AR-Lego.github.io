@@ -30,7 +30,7 @@ class Orb {
 
 
 function setup() {
-  createCanvas(pageWidth, pageHeight);
+  createCanvas(pageWidth / 1.1, pageHeight / 1.1);
   oOOo = new Orb();
 }
 
