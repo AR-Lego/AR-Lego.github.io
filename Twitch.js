@@ -5,19 +5,25 @@ require('dotenv').config(); // Load environment variables
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const clientId = process.env.Client_ID; // Your Twitch client ID
+const oauthToken = process.env.ACCESS_TOKEN; // Your OAuth token
+
 app.get('/chat-messages', async (req, res) => {
     try {
-        const clientId = process.env.Client_ID; // Access client ID from environment variable
-        const response = await fetch('https://api.twitch.tv/helix/some_endpoint', {
+        const broadcasterId = '584708748';
+        const numberOfMessages = 5;
+        const url = `https://api.twitch.tv/helix/channels/chats?broadcaster_id=${broadcasterId}&first=${numberOfMessages}`;
+
+        const response = await fetch(url, {
             headers: {
                 'Client-ID': clientId,
-                'Authorization': 'Bearer YOUR_ACCESS_TOKEN' // If required
+                'Authorization': `Bearer ${oauthToken}` // Use the access token from environment variables
             }
         });
         const data = await response.json();
         res.json(data); // Return chat messages as JSON
     } catch (error) {
-        console.error(error);
+        console.error('Error fetching chat messages from Twitch API:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -29,26 +35,29 @@ async function fetchChatMessages() {
         const data = await response.json();
         return data.messages.slice(0, 5); // Return the 5 most recent chat messages
     } catch (error) {
-        console.error('Error fetching chat messages:', error);
+        console.error('Error fetching chat messages from server:', error);
         return [];
     }
 }
 
 // Function to display chat messages on the webpage
 async function displayChatMessages() {
-    const chatMessages = await fetchChatMessages();
-    const chatContainer = document.getElementById('chat-container');
-    
-    chatMessages.forEach((message) => {
-        const messageElement = document.createElement('div');
-        messageElement.textContent = `${message.username}: ${message.message}`;
-        chatContainer.appendChild(messageElement);
-    });
+    try {
+        const chatMessages = await fetchChatMessages();
+        const chatContainer = document.getElementById('chat-container');
+        
+        chatMessages.forEach((message) => {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${message.username}: ${message.message}`;
+            chatContainer.appendChild(messageElement);
+        });
+    } catch (error) {
+        console.error('Error displaying chat messages:', error);
+    }
 }
 
 // Call the function to display chat messages when the page loads
 window.onload = displayChatMessages;
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
