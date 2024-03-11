@@ -6,7 +6,7 @@ var pageHeight = document.documentElement.clientHeight;
 var oOOo;
 
 class Orb {
-  Constructor() {
+  constructor() {
     this.x = pageWidth / 2;
     this.y = pageHeight / 2;
     this.velX = 0;
@@ -39,5 +39,5 @@ function setup() {
 function draw() {
   background(220);
   oOOo.show();
- // oOOo.update();
+  oOOo.update();
 }
