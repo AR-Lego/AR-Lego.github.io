@@ -7,8 +7,8 @@ var oOOo;
 
 class Orb {
   Constructor() {
-    this.x = 0;
-    this.y = 0;
+    this.x = pageWidth / 2;
+    this.y = pageHeight / 2;
     this.velX = 0;
     this.velY = 0;
     this.size = 5;
