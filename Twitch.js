@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const clientId = process.env.Client_ID; // Your Twitch client ID
-const oauthToken = process.env.ACCESS_TOKEN; // Your OAuth token
+const oauthToken = process.env.OAuth_token; // Your OAuth token
 
 app.get('/chat-messages', async (req, res) => {
     try {
