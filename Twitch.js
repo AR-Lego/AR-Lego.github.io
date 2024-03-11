@@ -5,8 +5,9 @@ require('dotenv').config(); // Load environment variables
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const clientId = process.env.Client_ID; // Your Twitch client ID
-const oauthToken = process.env.OAuth_token; // Your OAuth token
+const clientId = process.env.Client_ID || process.env.CLIENT_ID; // Use CLIENT_ID secret if Client_ID is not found
+const oauthToken = process.env.OAuth_token || process.env.OAUTH_TOKEN; // Use OAUTH_TOKEN secret if OAuth_token is not found
+
 
 app.get('/chat-messages', async (req, res) => {
     try {
