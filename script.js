@@ -41,16 +41,16 @@ function draw() {
   oOOo.show();
   oOOo.update();
   if (oOOo.x == 0) {
-    oOOo.velX = Math.abs(oOOo.velX)
+    oOOo.velX = 2
   }
   if (oOOo.x == pageWidth / 1.1) {
-    oOOo.velX = -Math.abs(oOOo.velX)
+    oOOo.velX = -2
   }
   if (oOOo.y == 0) {
-    oOOo.velY = Math.abs(oOOo.velY)
+    oOOo.velY = 1
   }
   if (oOOo.y == pageHeight / 1.1) {
-    oOOo.velY = -Math.abs(oOOo.velY)
+    oOOo.velY = -1
   }
   
 }
