@@ -32,6 +32,8 @@ class Orb {
 function setup() {
   createCanvas(pageWidth / 1.1, pageHeight / 1.1);
   oOOo = new Orb();
+  oOOo.velX = 2;
+  oOOo.velY = 1;
 }
 
 function draw() {
@@ -39,10 +41,10 @@ function draw() {
   oOOo.show();
   oOOo.update();
   if (oOOo.x == 0) {
-    oOOo.velX = 1
+    oOOo.velX = Math.abs(oOOo.velX)
   }
   if (oOOo.x == pageWidth / 1.1) {
-    oOOo.velX = -1
+    oOOo.velX = -Math.abs(oOOo.velX)
   }
   
 }
