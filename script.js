@@ -46,5 +46,11 @@ function draw() {
   if (oOOo.x == pageWidth / 1.1) {
     oOOo.velX = -Math.abs(oOOo.velX)
   }
+  if (oOOo.y == 0) {
+    oOOo.velY = Math.abs(oOOo.velY)
+  }
+  if (oOOo.y == pageHeight / 1.1) {
+    oOOo.velY = -Math.abs(oOOo.velY)
+  }
   
 }
